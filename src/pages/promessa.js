@@ -1,34 +1,39 @@
 import { Container } from "react-bootstrap";
 import Menu from "./component/navbar";
 import Footer from "./component/footer";
-import { useEffect, useState } from "react";
 
 
-export default function Promessa(){
-
-
-    const [prometido, setPrometido] = useState("")
-    useEffect(() => { 
-    setTimeout(() => {
-        setPrometido(mudaTexto("Ola Texto novo"));
-        document.title="Promessa é divida"
+export default function Promessa() {
+  const [prometido, setPrometido] = useState("")
+  useEffect(() => {
+    setTimeout(async () => {
+      document.title = "Promessa é dívida";
+      const altera = await saoLonguinho("olá texto novo");
+      setPrometido(altera);
     }, 4000);
-    });
-    return<>
-    <Menu /> 
-    <Container>
-     Promessa {prometido === "" ? <img src="./gif fw2.gif" width={200} height={100}/> : prometido}
-    </Container>
-    <Footer />
+  });
+  return (
+    <>
+      <Menu />
+      <Container>
+        Promessa{" "}
+        {prometido === "" ? (
+          <img src="./loading.gif" width={100} height={40} />
+        ) : (
+          prometido
+        )}
+      </Container>
+      <Footer />
     </>
+   
+
+
+);
 }
-
-function mudaTexto(texto) {
-    return new Promisse ((resolva) => 
-        setTimeout(() => {
-         resolva(texto);
-
-    }, 1000)
-
-)
-};
+function saoLonguinho(texto) {
+  return new Promise((resolva) => {
+    setTimeout(() => {
+      resolva(texto);
+    }, 3000);
+  });
+}
